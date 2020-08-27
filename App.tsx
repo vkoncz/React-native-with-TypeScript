@@ -1,117 +1,62 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-declare const global: {HermesInternal: null | {}};
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 
 const App = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change
-                this screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <Text style={styles.heading}>
+          Here are some boxes of different colours
+        </Text>
+        <View style={[styles.box, styles.cyan]}>
+          <Text style={styles.text}>Cyan #2aa198</Text>
+        </View>
+        <View style={[styles.box, styles.blue]}>
+          <Text style={styles.text}>Blue #268bd2</Text>
+        </View>
+        <View style={[styles.box, styles.magenta]}>
+          <Text style={styles.text}>Magenta #d33682</Text>
+        </View>
+        <View style={[styles.box, styles.orange]}>
+          <Text style={styles.text}>Orange #cb4b16</Text>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  container: {
+    paddingTop: 50,
+    paddingHorizontal: 10,
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
+  heading: {
     fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
-  highlight: {
-    fontWeight: '700',
+  text: {
+    fontWeight: 'bold',
+    color: 'white',
   },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+  box: {
+    padding: 10,
+    borderRadius: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  cyan: {
+    backgroundColor: '#2aa198',
+  },
+  blue: {
+    backgroundColor: '#268bd2',
+  },
+  magenta: {
+    backgroundColor: '#d33682',
+  },
+  orange: {
+    backgroundColor: '#cb4b16',
   },
 });
 
