@@ -4,7 +4,20 @@ import { Home } from './screens/Home';
 import { ColorPalette } from './screens/ColorPalette';
 import { createStackNavigator } from '@react-navigation/stack';
 
-const Stack = createStackNavigator();
+export type RootStackParamList = {
+  Home: undefined;
+  ColorPalette: {
+    paletteName: string;
+    colors: HexColor[];
+  };
+};
+
+export type HexColor = {
+  colorName: string;
+  hexCode: string;
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 const App = () => {
   return (
