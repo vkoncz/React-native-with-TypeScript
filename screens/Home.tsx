@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList, HexColor } from '../App';
+import { PalettePreview } from '../components/PalettePreview';
 
 const SOLARIZED: HexColor[] = [
   { colorName: 'Base03', hexCode: '#002b36' },
@@ -22,20 +23,51 @@ const SOLARIZED: HexColor[] = [
   { colorName: 'Green', hexCode: '#859900' },
 ];
 
+const RAINBOW = [
+  { colorName: 'Red', hexCode: '#FF0000' },
+  { colorName: 'Orange', hexCode: '#FF7F00' },
+  { colorName: 'Yellow', hexCode: '#FFFF00' },
+  { colorName: 'Green', hexCode: '#00FF00' },
+  { colorName: 'Violet', hexCode: '#8B00FF' },
+];
+
+const FRONTEND_MASTERS = [
+  { colorName: 'Red', hexCode: '#c02d28' },
+  { colorName: 'Black', hexCode: '#3e3e3e' },
+  { colorName: 'Grey', hexCode: '#8a8a8a' },
+  { colorName: 'White', hexCode: '#ffffff' },
+  { colorName: 'Orange', hexCode: '#e66225' },
+];
+
+const COLOR_PALETTES = [
+  { paletteName: 'Solarized', colors: SOLARIZED },
+  { paletteName: 'Frontend Masters', colors: FRONTEND_MASTERS },
+  { paletteName: 'Rainbow', colors: RAINBOW },
+];
+
 type Props = StackScreenProps<RootStackParamList, 'Home'>;
 
 export const Home: React.FC<Props> = ({ navigation }) => {
   return (
-    <View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('ColorPalette', {
-            paletteName: 'Solarized',
-            colors: SOLARIZED,
-          });
-        }}>
-        <Text>Solarized</Text>
-      </TouchableOpacity>
-    </View>
+    <FlatList
+      style={styles.list}
+      data={COLOR_PALETTES}
+      keyExtractor={(item) => item.paletteName}
+      renderItem={({ item }) => (
+        <PalettePreview
+          handlePress={() => {
+            navigation.navigate('ColorPalette', item);
+          }}
+          colorPalette={item}
+        />
+      )}
+    />
   );
 };
+
+const styles = StyleSheet.create({
+  list: {
+    padding: 10,
+    backgroundColor: 'white',
+  },
+});
