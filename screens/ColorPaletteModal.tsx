@@ -1,10 +1,17 @@
-import { StackScreenProps } from '@react-navigation/stack';
+import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useCallback, useState } from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Switch, TextInput } from 'react-native-gesture-handler';
-import { RootStackParamList } from '../App';
+import { MainStackParamList, RootStackParamList } from '../App';
 
-type Props = StackScreenProps<RootStackParamList>;
+interface Props {
+  navigation: CompositeNavigationProp<
+    StackNavigationProp<RootStackParamList, 'ColorPaletteModal'>,
+    StackNavigationProp<MainStackParamList>
+  >;
+  route: RouteProp<RootStackParamList, 'ColorPaletteModal'>;
+}
 
 export const ColorPaletteModal: React.FC<Props> = ({ navigation }) => {
   const [name, setName] = useState('');

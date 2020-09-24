@@ -10,7 +10,7 @@ export type ColorPalette = {
   colors: {
     colorName: string;
     hexCode: string;
-  };
+  }[];
 };
 
 export type RootStackParamList = {
