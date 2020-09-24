@@ -1,12 +1,22 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
-import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParamList, ColorPalette } from '../App';
+import { FlatList, StyleSheet, Text } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { ColorPalette, MainStackParamList, RootStackParamList } from '../App';
 import { PalettePreview } from '../components/PalettePreview';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 
-type Props = StackScreenProps<RootStackParamList, 'Home'>;
+interface Props {
+  navigation: CompositeNavigationProp<
+    StackNavigationProp<MainStackParamList, 'Home'>,
+    StackNavigationProp<RootStackParamList>
+  >;
+  route: RouteProp<MainStackParamList, 'Home'>;
+}
 
-export const Home: React.FC<Props> = ({ navigation }) => {
+export const Home: React.FC<Props> = ({ navigation, route }) => {
+  const newColorPalette = route.params?.newColorPalette;
+
   const [colorPalettes, setColorPalettes] = useState<ColorPalette[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -31,6 +41,12 @@ export const Home: React.FC<Props> = ({ navigation }) => {
     setIsRefreshing(false);
   }, [fetchColorPalettes]);
 
+  useEffect(() => {
+    if (newColorPalette) {
+      setColorPalettes((palettes) => [newColorPalette, ...palettes]);
+    }
+  }, [newColorPalette]);
+
   return (
     <FlatList
       style={styles.list}
@@ -46,6 +62,14 @@ export const Home: React.FC<Props> = ({ navigation }) => {
       )}
       refreshing={isRefreshing}
       onRefresh={handleRefresh}
+      ListHeaderComponent={
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('ColorPaletteModal');
+          }}>
+          <Text style={styles.buttonText}>Add a color scheme</Text>
+        </TouchableOpacity>
+      }
     />
   );
 };
@@ -54,5 +78,11 @@ const styles = StyleSheet.create({
   list: {
     padding: 10,
     backgroundColor: 'white',
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'teal',
+    marginBottom: 10,
   },
 });

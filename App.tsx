@@ -3,37 +3,57 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Home } from './screens/Home';
 import { ColorPalette } from './screens/ColorPalette';
 import { createStackNavigator } from '@react-navigation/stack';
+import { ColorPaletteModal } from './screens/ColorPaletteModal';
 
 export type ColorPalette = {
   paletteName: string;
-  colors: HexColor[];
+  colors: {
+    colorName: string;
+    hexCode: string;
+  };
 };
 
 export type RootStackParamList = {
-  Home: undefined;
+  Main: undefined;
+  ColorPaletteModal: undefined;
+};
+
+export type MainStackParamList = {
+  Home: {
+    newColorPalette?: ColorPalette;
+  };
   ColorPalette: ColorPalette;
 };
 
-export type HexColor = {
-  colorName: string;
-  hexCode: string;
-};
+const MainStack = createStackNavigator<MainStackParamList>();
+const RootStack = createStackNavigator<RootStackParamList>();
 
-const Stack = createStackNavigator<RootStackParamList>();
+const MainStackScreen = () => (
+  <MainStack.Navigator>
+    <MainStack.Screen name="Home" component={Home} />
+    <MainStack.Screen
+      name="ColorPalette"
+      component={ColorPalette}
+      options={({ route }) => ({ title: route.params.paletteName })}
+    />
+  </MainStack.Navigator>
+);
 
-const App = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen
-          name="ColorPalette"
-          component={ColorPalette}
-          options={({ route }) => ({ title: route.params.paletteName })}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-};
+const App = () => (
+  <NavigationContainer>
+    <RootStack.Navigator mode="modal">
+      <RootStack.Screen
+        name="Main"
+        component={MainStackScreen}
+        options={{ headerShown: false }}
+      />
+      <RootStack.Screen
+        name="ColorPaletteModal"
+        component={ColorPaletteModal}
+        options={{ headerShown: false }}
+      />
+    </RootStack.Navigator>
+  </NavigationContainer>
+);
 
 export default App;

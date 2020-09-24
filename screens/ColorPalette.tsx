@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text, FlatList, StyleSheet } from 'react-native';
 import ColorBox from '../components/ColorBox';
-import { RootStackParamList } from '../App';
+import { MainStackParamList } from '../App';
 import { StackScreenProps } from '@react-navigation/stack';
 
-type Props = StackScreenProps<RootStackParamList, 'ColorPalette'>;
+type Props = StackScreenProps<MainStackParamList, 'ColorPalette'>;
 
 export const ColorPalette: React.FC<Props> = ({ route }) => {
   const { colors, paletteName } = route.params;
