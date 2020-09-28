@@ -7,10 +7,7 @@ import { ColorPaletteModal } from './screens/ColorPaletteModal';
 
 export type ColorPalette = {
   paletteName: string;
-  colors: {
-    colorName: string;
-    hexCode: string;
-  }[];
+  colors: Color[];
 };
 
 export type RootStackParamList = {
@@ -23,6 +20,11 @@ export type MainStackParamList = {
     newColorPalette?: ColorPalette;
   };
   ColorPalette: ColorPalette;
+};
+
+export type Color = {
+  colorName: string;
+  hexCode: string;
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
